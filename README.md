@@ -1,8 +1,8 @@
 代码执行性能分析
 ===
 
-[![Build Status](https://travis-ci.com/lsys/profiler.svg?branch=next_version)](https://travis-ci.com/lsys/profiler)
-[![Coverage Status](https://coveralls.io/repos/github/lsys/profiler/badge.svg?branch=next_version)](https://coveralls.io/github/lsys/profiler?branch=next_version)
+[![Build Status](https://travis-ci.com/lsys/profiler.svg?branch=master)](https://travis-ci.com/lsys/profiler)
+[![Coverage Status](https://coveralls.io/repos/github/lsys/profiler/badge.svg?branch=master)](https://coveralls.io/github/lsys/profiler?branch=master)
 
 > 查看代码执行时间及运行时的内存使用情况
 
