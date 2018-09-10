@@ -2,7 +2,7 @@
 ===
 
 [![Build Status](https://travis-ci.com/php-lsys/profiler.svg?branch=master)](https://travis-ci.com/php-lsys/profiler)
-[![Coverage Status](https://coveralls.io/repos/github/php-lsys/profiler/badge.svg?branch=master)](https://coveralls.io/github/lsys/profiler?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/php-lsys/profiler/badge.svg?branch=master)](https://coveralls.io/github/php-lsys/profiler?branch=master)
 
 > 查看代码执行时间及运行时的内存使用情况
 
