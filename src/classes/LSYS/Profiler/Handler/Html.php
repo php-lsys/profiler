@@ -26,9 +26,9 @@ class Html implements Handler{
 	protected function _render(array $app_data,array $data){
 		list($app_time,$app_memory,$app_peak_memory)=$app_data;
 		$h3="<b>分析:</b>
-		  	<span>总耗时:".Render::format_time($app_time)." </span>
-		    <span>内存申请:".Render::format_size($app_memory)." </span>
-		    <span>内存峰值:".Render::format_size($app_peak_memory)." </span>
+		  	<span>总耗时:".Render::formatTime($app_time)." </span>
+		    <span>内存申请:".Render::formatSize($app_memory)." </span>
+		    <span>内存峰值:".Render::formatSize($app_peak_memory)." </span>
 		    ";
 		$marks=array();
 		// $data;
@@ -68,9 +68,9 @@ class Html implements Handler{
 					// $mark['stop_memory'] - $mark['start_memory'],
 					// $mark['stop_peak_memory'],
 					list($run_time,$memory)=$v2;
-					$token="<span class='mark_token'>耗时:".Render::format_time($run_time);
-					if ($memory>0)$token.=",增加内存:".Render::format_size($memory)."</span>";
-					else $token.=",释放内存:".Render::format_size(-$memory)."</span>";;
+					$token="<span class='mark_token'>耗时:".Render::formatTime($run_time);
+					if ($memory>0)$token.=",增加内存:".Render::formatSize($memory)."</span>";
+					else $token.=",释放内存:".Render::formatSize(-$memory)."</span>";;
 					$tokens[]=$token;
 				}
 				$token_str="";
@@ -89,23 +89,23 @@ class Html implements Handler{
 				if ($len>1){
 					$token_info="
 						内存 [
-							峰值:".Render::format_size($v1['stats']['peak_memory'])."
-							平均:".Render::format_size($v1['stats']['average']['memory'])."
-							最大:".Render::format_size($v1['stats']['max']['memory'])."
-							最小:".Render::format_size($v1['stats']['min']['memory'])."
+							峰值:".Render::formatSize($v1['stats']['peak_memory'])."
+							平均:".Render::formatSize($v1['stats']['average']['memory'])."
+							最大:".Render::formatSize($v1['stats']['max']['memory'])."
+							最小:".Render::formatSize($v1['stats']['min']['memory'])."
 							]
 						耗时 [
-							 总计:".Render::format_time($v1['stats']['total_time'])." 
-					 		 平均:".Render::format_time($v1['stats']['average']['time'])."
-							 最小:".Render::format_time($v1['stats']['min']['time'])."
-							 最大:".Render::format_time($v1['stats']['max']['time'])."
+							 总计:".Render::formatTime($v1['stats']['total_time'])." 
+					 		 平均:".Render::formatTime($v1['stats']['average']['time'])."
+							 最小:".Render::formatTime($v1['stats']['min']['time'])."
+							 最大:".Render::formatTime($v1['stats']['max']['time'])."
 							 ]
 					";
 				}else{
 					$token_info="
-						内存峰值:".Render::format_size($v1['stats']['peak_memory'])."
-						耗时:".Render::format_time($v1['stats']['total_time'])."
-						内存:".Render::format_size($v1['stats']['average']['memory'])."
+						内存峰值:".Render::formatSize($v1['stats']['peak_memory'])."
+						耗时:".Render::formatTime($v1['stats']['total_time'])."
+						内存:".Render::formatSize($v1['stats']['average']['memory'])."
 					";
 				}
 				$v1['name']=htmlspecialchars($v1['name']);
@@ -156,8 +156,8 @@ class Html implements Handler{
 						</h5>
 						{$item_str}
 				   		<div class='mark_foot'>
-				   			此组内存峰值:".Render::format_size($v['stats']['peak_memory'])." 
-				   			".($v['stats']['total_time']==0?'':'此组耗时:'.Render::format_time($v['stats']['total_time']))."
+				   			此组内存峰值:".Render::formatSize($v['stats']['peak_memory'])." 
+				   			".($v['stats']['total_time']==0?'':'此组耗时:'.Render::formatTime($v['stats']['total_time']))."
 				   		</div>
 			   		</div>
 				 ";
@@ -172,8 +172,8 @@ class Html implements Handler{
 				<div class='marks'>
 					<div class='mark_items'>{$marks_items}</div>
 		  			<div class='marks_right'>
-		  			总组内存峰值:".Render::format_size($data['peak_memory']).
-					",总组耗时:".Render::format_time($data['total_time'])."
+		  			总组内存峰值:".Render::formatSize($data['peak_memory']).
+					",总组耗时:".Render::formatTime($data['total_time'])."
 					</div>
 				</div>
 			";

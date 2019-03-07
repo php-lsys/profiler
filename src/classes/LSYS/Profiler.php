@@ -29,7 +29,7 @@ class Profiler{
 	 * @param float $init_time
 	 * @param int $init_peak_memory
 	 */
-	public function app_init($init_time,$init_peak_memory){
+	public function appInit($init_time,$init_peak_memory){
 		$this->_mark_app=array_merge($this->_mark_app,array(
 			'start_time'   =>$init_time*1000,
 			'start_peak_memory' =>$init_peak_memory,
@@ -39,7 +39,7 @@ class Profiler{
 	/**
 	 * end app call
 	 */
-	public function app_end(){
+	public function appEnd(){
 		$this->_mark_app['stop_time']   = microtime(TRUE)*1000;
 		$this->_mark_app['stop_peak_memory'] =  memory_get_peak_usage();
 		return $this;
@@ -48,10 +48,10 @@ class Profiler{
 	 * app profiler data
 	 * @return number[]
 	 */
-	public function app_total(){
+	public function appTotal(){
 		if ($this->_mark_app['stop_time'] === FALSE)
 		{
-			$this->app_end();
+			$this->appEnd();
 		}
 		return array
 		(

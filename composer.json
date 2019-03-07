@@ -2,7 +2,7 @@
 	"name" : "lsys/profiler",
 	"type" : "library",
 	"license": "Apache-2.0",
-	"version" : "1.0.0",
+	"version" : "2.0.0",
 	"description" : "lsys module profiler",
 	"autoload" : {
 		"psr-4" : {
@@ -14,7 +14,7 @@
 	},
 	"require" : {
 		"php" : ">=5.4",
-		"lsys/core" : "~1.0.0"
+		"lsys/core" : "~2.0.0"
 	},
 	"suggest" : {
 		"ccampbell/chromephp":"4.1.0",

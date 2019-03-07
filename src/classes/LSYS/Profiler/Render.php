@@ -21,12 +21,12 @@ class Render{
 	}
 	
 	protected $_stat_filter=array();
-	public function add_stat_filter($group,$name=null){
+	public function addStatFilter($group,$name=null){
 		$this->_stat_filter[]=array($group,$name);
 		return $this;
 	}
 	
-	protected function _in_filter($group,$name=null){
+	protected function _inFilter($group,$name=null){
 		if ($name===null){
 			foreach ($this->_stat_filter as $v){
 				if ($v[0]==$group&&$v[1]===null) return true;
@@ -38,7 +38,7 @@ class Render{
 		}
 		return false;
 	}
-    public static function format_time($time) {
+    public static function formatTime($time) {
         if ($time > 1000 && $time < 60000) {
             return sprintf('%02.2f', $time / 1000).' s';
         }
@@ -49,7 +49,7 @@ class Render{
 
         return sprintf('%02.2f', $time).' ms';
     }
-    public static function format_size($size) {
+    public static function formatSize($size) {
     	$s=$size>=0?"":"-";
     	$size=abs($size);
         if ($size > 1024 * 1024) {
@@ -62,7 +62,7 @@ class Render{
     }
 	public function render($handler=null){
 		$groups=$this->stats();
-		$app_data=$this->_profile->app_total();		
+		$app_data=$this->_profile->appTotal();		
 		if ($handler===null){
 			$out='';
 			foreach ($this->_handlers as $v){
@@ -71,13 +71,13 @@ class Render{
 			return $out;
 		}else return $handler->render($app_data,$groups);
 	}
-	public function name_stats($group,$name){
+	public function nameStats($group,$name){
 		$groups=$this->_profile->groups($group,$name);
-		return $this->_tokens_stats($groups[$group][$name]);
+		return $this->_tokensStats($groups[$group][$name]);
 	}
-	public function group_stats($group){
+	public function groupStats($group){
 		$groups=$this->_profile->groups($group);
-		return $this->_group_tokens_stats($group,$groups[$group]);
+		return $this->_groupTokensStats($group,$groups[$group]);
 	}
 	public function stats(){
 		$groups=$this->_profile->groups();
@@ -90,7 +90,7 @@ class Render{
 		$stats = array();
 		foreach ($groups as $group => $names)
 		{
-			$stat=$this->_group_tokens_stats($group,$names);
+			$stat=$this->_groupTokensStats($group,$names);
 // 			'min'=>$min_time,//平均最小name执行时间
 // 			'max'=>$max_time,//平均最大name执行时间
 // 			'peak_memory'=>$peak_memory,//峰值内存
@@ -104,7 +104,7 @@ class Render{
 				'group'=>$group,
 				'stats'=>$stat
 			);
-			if ($this->_in_filter($group)) continue;//过滤不参与计算数据
+			if ($this->_inFilter($group)) continue;//过滤不参与计算数据
 			if ($max_time['time'] === NULL OR $stat['total_time'] > $max_time['time'])
 			{
 				$max_time['time'] = $stat['total_time'];
@@ -125,7 +125,7 @@ class Render{
 			'groups'=>$stats//每次详细
 		);
 	}
-	protected function _group_tokens_stats($group,array $names)
+	protected function _groupTokensStats($group,array $names)
 	{
 		//最小 最大 总计耗时
 		$min_time=$max_time=array(
@@ -138,7 +138,7 @@ class Render{
 		$stats = array();
 		foreach ($names as $name => $tokens)
 		{
-				$stat=$this->_tokens_stats($tokens);
+				$stat=$this->_tokensStats($tokens);
 // 				'min' => $min,//最小值
 // 				'max' => $max,//最大值
 // 				'average' => $average,//评价值
@@ -153,7 +153,7 @@ class Render{
 					'name'=>$name,
 					'stats'=>$stat
 				);
-				if ($this->_in_filter($group)||$this->_in_filter($group,$name)){
+				if ($this->_inFilter($group)||$this->_inFilter($group,$name)){
 					continue;
 				}
 				if ($max_time['time'] === NULL OR $stat['total_time'] > $max_time['time'])
@@ -180,7 +180,7 @@ class Render{
 		);
 	}
 	//
-	protected function _tokens_stats(array $tokens)
+	protected function _tokensStats(array $tokens)
 	{
 		// Min and max are unknown by default
 		$min = $max = array(

@@ -32,9 +32,9 @@ class Markdown implements Handler{
 	}
 	protected function _render(array $app_data,array $data){
 		list($app_time,$app_memory,$app_peak_memory)=$app_data;
-		$h3="#### `Run Time:`:".Render::format_time($app_time).
-			" `Memory Request:`".Render::format_size($app_memory).
-			" `Memory Peak:`".Render::format_size($app_peak_memory).
+		$h3="#### `Run Time:`:".Render::formatTime($app_time).
+			" `Memory Request:`".Render::formatSize($app_memory).
+			" `Memory Peak:`".Render::formatSize($app_peak_memory).
 			"\n-----------------------------------------------------------------------------\n";
 		$marks=array();
 		// $data;
@@ -76,9 +76,9 @@ class Markdown implements Handler{
 					list($run_time,$memory)=$v2;
 					//	> *  *`Run Total:`* 1 
 					//	> * `Time:` 97.94 ms  `+Memory :` 2.15 MB
-					$token="\t> * `Time:`".Render::format_time($run_time);
-					if ($memory>0)$token.=" `+Memory :`".Render::format_size($memory)."\n";
-					else $token.=" `-Memory :`".Render::format_size(-$memory)."\n";;
+					$token="\t> * `Time:`".Render::formatTime($run_time);
+					if ($memory>0)$token.=" `+Memory :`".Render::formatSize($memory)."\n";
+					else $token.=" `-Memory :`".Render::formatSize(-$memory)."\n";;
 					$tokens[]=$token;
 				}
 				
@@ -92,23 +92,23 @@ class Markdown implements Handler{
 // 					> `Run Total:` 1
 // 					> * `Time:` 97.94 ms  `+Memory :` 2.15 MB
 // 					> * `Time:` 97.94 ms  `-Memory :` 2.15 MB
-					$token_info="\t> `Memory` *`Peak:`* ".Render::format_size($v1['stats']['peak_memory']).
-								" *`Average:`* ".Render::format_size($v1['stats']['average']['memory']).
-								" *`Min:`* ".Render::format_size($v1['stats']['min']['memory']).
-								" *`Max:`* ".Render::format_size($v1['stats']['max']['memory'])."\n".
-								"\t> `Time` *`Total:`* ".Render::format_time($v1['stats']['total_time']).
-								" *`Average:`* ".Render::format_time($v1['stats']['average']['time']).
-								" *`Min:`* ".Render::format_time($v1['stats']['min']['time']).
-								" *`Max:`* ".Render::format_time($v1['stats']['max']['time'])."\n"
+					$token_info="\t> `Memory` *`Peak:`* ".Render::formatSize($v1['stats']['peak_memory']).
+								" *`Average:`* ".Render::formatSize($v1['stats']['average']['memory']).
+								" *`Min:`* ".Render::formatSize($v1['stats']['min']['memory']).
+								" *`Max:`* ".Render::formatSize($v1['stats']['max']['memory'])."\n".
+								"\t> `Time` *`Total:`* ".Render::formatTime($v1['stats']['total_time']).
+								" *`Average:`* ".Render::formatTime($v1['stats']['average']['time']).
+								" *`Min:`* ".Render::formatTime($v1['stats']['min']['time']).
+								" *`Max:`* ".Render::formatTime($v1['stats']['max']['time'])."\n"
 					;
 				}else{
 					//	- 运行名称
 					//	> `Memory Peak :`3.20 MB
 					//	> `Time:` 97.94 ms
 					//	> `+Memory :`2.15 MB
-					$token_info="\t> `Memory Peak :` ".Render::format_size($v1['stats']['peak_memory'])."\n".
-						"\t> `Time:`".Render::format_time($v1['stats']['total_time'])."\n".
-						"\t> `+Memory :`".Render::format_size($v1['stats']['average']['memory'])."\n";
+					$token_info="\t> `Memory Peak :` ".Render::formatSize($v1['stats']['peak_memory'])."\n".
+						"\t> `Time:`".Render::formatTime($v1['stats']['total_time'])."\n".
+						"\t> `+Memory :`".Render::formatSize($v1['stats']['average']['memory'])."\n";
 				}
 				//	- 运行名称
 				$v1['name']=str_replace("\n", " ", $v1['name']);
@@ -137,8 +137,8 @@ class Markdown implements Handler{
 			if($data['max']['group']==$v['group']) $high="`Max` ";
 			else if($data['min']['group']==$v['group']) $low="`Min` ";
 			$v['group']=str_replace("\n", " ", $v['group']);
-			$mark="+ {$high}{$low}{$v['group']} [`Memory Peak :`".Render::format_size($v['stats']['peak_memory']).
-					" `Time:`".Render::format_time($v['stats']['total_time'])."]\n".$item_str;
+			$mark="+ {$high}{$low}{$v['group']} [`Memory Peak :`".Render::formatSize($v['stats']['peak_memory']).
+					" `Time:`".Render::formatTime($v['stats']['total_time'])."]\n".$item_str;
 			$marks[]=$mark;
 		}
 		
@@ -146,8 +146,8 @@ class Markdown implements Handler{
 		
 		$marks_info='';
 		if (count($marks)>0){
-			$marks_info=$marks_items."\n> **PS:** `Memory Peak:`:".Render::format_size($data['peak_memory']).
-					" `Total Time:` ".Render::format_time($data['total_time'])."\n";
+			$marks_info=$marks_items."\n> **PS:** `Memory Peak:`:".Render::formatSize($data['peak_memory']).
+					" `Total Time:` ".Render::formatTime($data['total_time'])."\n";
 		}
 		
 		return PHP_SAPI==='cli'?$h3.$marks_info:rtrim($h3.$marks_info);

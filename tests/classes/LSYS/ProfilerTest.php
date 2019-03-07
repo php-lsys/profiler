@@ -11,7 +11,7 @@ final class ProfilerTest extends TestCase
         $token=$p->start("a","b");
         for($i=0;$i<1000;$i++){}
         $p->stop($token);
-        $this->assertTrue(count($p->app_total())==3);
+        $this->assertTrue(count($p->appTotal())==3);
         $render=new Render($p);
         $data=$render->stats();
         $this->assertArrayHasKey('min', $data);
