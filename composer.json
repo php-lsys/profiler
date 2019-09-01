@@ -13,7 +13,6 @@
 		]
 	},
 	"require" : {
-		"php" : ">=5.4",
 		"lsys/core" : "~2.1.0"
 	},
 	"suggest" : {
