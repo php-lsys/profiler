@@ -7,6 +7,7 @@
 		"psr-4" : {
 			"LSYS\\" : "src/common/classes/LSYS/",
 			"LSYS\\Profiler\\Handler\\" : [
+				"src/common/classes/LSYS/Profiler/Handler/",
 				"src/driver-chromephp/classes/LSYS/Profiler/Handler/",
 				"src/driver-firephp/classes/LSYS/Profiler/Handler/"
 			]
