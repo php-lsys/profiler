@@ -17,7 +17,7 @@
 		]
 	},
 	"require" : {
-		"lsys/core" : "~0.0.0"
+		"lsys/core" : "~0.0.1"
 	},
 	"suggest" : {
 		"ccampbell/chromephp":"4.1.0",
