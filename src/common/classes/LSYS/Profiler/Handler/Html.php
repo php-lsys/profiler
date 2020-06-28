@@ -10,7 +10,7 @@ use LSYS\Profiler\Handler;
 use LSYS\Profiler\Render;
 class Html implements Handler{
 	protected $_return;
-	public function __construct($return=false){
+	public function __construct(bool $return=false){
 		$this->_return=$return;
 	}
 	public function render(array $app_data,array $data){

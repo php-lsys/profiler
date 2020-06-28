@@ -150,6 +150,6 @@ class Markdown implements Handler{
 					" `Total Time:` ".Render::formatTime($data['total_time'])."\n";
 		}
 		
-		return PHP_SAPI==='cli'?$h3.$marks_info:rtrim($h3.$marks_info);
+		return PHP_SAPI==='cli'?($h3.$marks_info):rtrim($h3.$marks_info);
 	}
 }

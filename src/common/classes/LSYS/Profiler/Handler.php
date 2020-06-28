@@ -7,5 +7,11 @@
  */
 namespace LSYS\Profiler;
 interface Handler{
+    /**
+     * 渲染
+     * @param array $app_data
+     * @param array $data
+     * @return string|void
+     */
 	public function render(array $app_data,array $data);
 }

@@ -15,18 +15,29 @@ class Render{
 	    if ($profile===null)$profile=\LSYS\Profiler\DI::get()->profiler();
 		$this->_profile=$profile;
 	}
+	/**
+	 * 添加性能渲染器
+	 * @param Handler $handler
+	 * @return \LSYS\Profiler\Render
+	 */
 	public function pushHandler(Handler $handler){
 		$this->_handlers[]=$handler;
 		return $this;
 	}
 	
 	protected $_stat_filter=array();
-	public function addStatFilter($group,$name=null){
+	/**
+	 * 添加过滤组或指定组中名的TOKEN渲染
+	 * @param string $group
+	 * @param string $name
+	 * @return \LSYS\Profiler\Render
+	 */
+	public function addStatFilter(string $group,?string $name=null){
 		$this->_stat_filter[]=array($group,$name);
 		return $this;
 	}
 	
-	protected function _inFilter($group,$name=null){
+	protected function _inFilter(string $group,?string $name=null):bool{
 		if ($name===null){
 			foreach ($this->_stat_filter as $v){
 				if ($v[0]==$group&&$v[1]===null) return true;
@@ -38,7 +49,7 @@ class Render{
 		}
 		return false;
 	}
-    public static function formatTime($time) {
+    public static function formatTime($time):string {
         if ($time > 1000 && $time < 60000) {
             return sprintf('%02.2f', $time / 1000).' s';
         }
@@ -49,7 +60,7 @@ class Render{
 
         return sprintf('%02.2f', $time).' ms';
     }
-    public static function formatSize($size) {
+    public static function formatSize($size):string {
     	$s=$size>=0?"":"-";
     	$size=abs($size);
         if ($size > 1024 * 1024) {
@@ -71,15 +82,30 @@ class Render{
 			return $out;
 		}else return $handler->render($app_data,$groups);
 	}
-	public function nameStats($group,$name){
+	/**
+	 * 指定组名的性能信息
+	 * @param string $group
+	 * @param string $name
+	 * @return array
+	 */
+	public function nameStats(?string $group,?string $name):array{
 		$groups=$this->_profile->groups($group,$name);
 		return $this->_tokensStats($groups[$group][$name]);
 	}
-	public function groupStats($group){
+	/**
+	 * 指定组的性能信息
+	 * @param string $group
+	 * @return array
+	 */
+	public function groupStats(?string  $group):array{
 		$groups=$this->_profile->groups($group);
 		return $this->_groupTokensStats($group,$groups[$group]);
 	}
-	public function stats(){
+	/**
+	 * 全量性能信息
+	 * @return array
+	 */
+	public function stats():array{
 		$groups=$this->_profile->groups();
 		$min_time=$max_time=array(
 			'group'=>null,
@@ -125,7 +151,7 @@ class Render{
 			'groups'=>$stats//每次详细
 		);
 	}
-	protected function _groupTokensStats($group,array $names)
+	protected function _groupTokensStats(?string $group,array $names):array
 	{
 		//最小 最大 总计耗时
 		$min_time=$max_time=array(
@@ -180,7 +206,7 @@ class Render{
 		);
 	}
 	//
-	protected function _tokensStats(array $tokens)
+	protected function _tokensStats(array $tokens):array
 	{
 		// Min and max are unknown by default
 		$min = $max = array(

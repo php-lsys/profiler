@@ -29,7 +29,7 @@ class Profiler{
 	 * @param float $init_time
 	 * @param int $init_peak_memory
 	 */
-	public function appInit($init_time,$init_peak_memory){
+	public function appInit(float $init_time,int $init_peak_memory){
 		$this->_mark_app=array_merge($this->_mark_app,array(
 			'start_time'   =>$init_time*1000,
 			'start_peak_memory' =>$init_peak_memory,
@@ -48,7 +48,7 @@ class Profiler{
 	 * app profiler data
 	 * @return number[]
 	 */
-	public function appTotal(){
+	public function appTotal():array{
 		if ($this->_mark_app['stop_time'] === FALSE)
 		{
 			$this->appEnd();
@@ -66,7 +66,7 @@ class Profiler{
 	 * @param string $name
 	 * @return string
 	 */
-	public function start($group, $name)
+	public function start(string $group, string $name):string
 	{
 		static $counter = 0;
 		$token = base_convert($counter++, 10, 32);
@@ -88,7 +88,7 @@ class Profiler{
 	 * end mark of profiler
 	 * @param int $token
 	 */
-	public function stop($token)
+	public function stop(string $token):bool
 	{
 		if (!isset($this->_marks[$token]))return false;
 		$this->_marks[$token]['stop_time']   = microtime(TRUE)*1000;
@@ -100,7 +100,7 @@ class Profiler{
 	 * delete mark of profiler
 	 * @param int $token
 	 */
-	public function delete($token)
+	public function delete(string $token):bool
 	{
 		unset($this->_marks[$token]);
 		return true;
@@ -111,7 +111,7 @@ class Profiler{
 	 * @param string $name
 	 * @return array
 	 */
-	public function groups($group=null,$name=null)
+	public function groups(?string $group=null,?string $name=null):array
 	{
 		$groups = array();
 		foreach ($this->_marks as $token => $mark)
@@ -126,7 +126,7 @@ class Profiler{
 		if (isset($groups[$group][$name]))$groups[$group][$name]=array();
 		return $groups;
 	}
-	public function total($token)
+	public function total(string $token):array
 	{
 		$mark = $this->_marks[$token];
 		if ($mark['stop_time'] === FALSE)
