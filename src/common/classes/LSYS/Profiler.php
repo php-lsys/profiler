@@ -29,7 +29,9 @@ class Profiler{
 	 * @param float $init_time
 	 * @param int $init_peak_memory
 	 */
-	public function appInit(float $init_time,int $init_peak_memory){
+	public function appInit(float $init_time=null,int $init_peak_memory=null){
+	    if (is_null($init_time))$init_time=microtime(TRUE)*1000;
+	    if (is_null($init_peak_memory))$init_peak_memory=memory_get_peak_usage();
 		$this->_mark_app=array_merge($this->_mark_app,array(
 			'start_time'   =>$init_time*1000,
 			'start_peak_memory' =>$init_peak_memory,
