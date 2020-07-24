@@ -33,7 +33,10 @@ class Profiler{
 		$this->_mark_app=array_merge($this->_mark_app,array(
 			'start_time'   =>$init_time*1000,
 			'start_peak_memory' =>$init_peak_memory,
+		    'stop_time'    => FALSE,
+		    'stop_peak_memory' => FALSE,
 		));
+		$this->_marks=[];
 		return $this;
 	}
 	/**
